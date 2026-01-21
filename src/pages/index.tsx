@@ -1,78 +1,159 @@
-import Image from "next/image";
-import { Geist, Geist_Mono } from "next/font/google";
+import { motion } from 'framer-motion';
+import { Layers, Scissors, FileStack, Hash, Droplets, Image, ImagePlus, Minimize2, PenTool, Shield, Zap, Globe } from 'lucide-react';
+import Navbar from '@/components/layout/Navbar';
+import Footer from '@/components/layout/Footer';
+import ToolCard from '@/components/shared/ToolCard';
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+const tools = [
+  {
+    title: 'Gabungkan PDF',
+    description: 'Satukan beberapa file PDF menjadi satu dokumen.',
+    icon: Layers,
+    href: '/merge'
+  },
+  {
+    title: 'Pisahkan PDF',
+    description: 'Pisahkan halaman PDF menjadi beberapa file.',
+    icon: Scissors,
+    href: '/split'
+  },
+  {
+    title: 'Atur PDF',
+    description: 'Susun ulang, putar, atau hapus halaman PDF.',
+    icon: FileStack,
+    href: '/organize'
+  },
+  {
+    title: 'Nomor Halaman',
+    description: 'Tambahkan nomor halaman dengan posisi kustom.',
+    icon: Hash,
+    href: '/page-numbers'
+  },
+  {
+    title: 'Watermark',
+    description: 'Tambahkan watermark teks atau gambar ke PDF.',
+    icon: Droplets,
+    href: '/watermark'
+  },
+  {
+    title: 'PDF ke JPG',
+    description: 'Konversi halaman PDF ke gambar berkualitas tinggi.',
+    icon: Image,
+    href: '/pdf-to-jpg'
+  },
+  {
+    title: 'JPG ke PDF',
+    description: 'Buat PDF dari beberapa gambar sekaligus.',
+    icon: ImagePlus,
+    href: '/jpg-to-pdf'
+  },
+  {
+    title: 'Kompres PDF',
+    description: 'Kurangi ukuran file PDF dengan kualitas terjaga.',
+    icon: Minimize2,
+    href: '/compress'
+  },
+  {
+    title: 'Tanda Tangan PDF',
+    description: 'Tambahkan tanda tangan ke dokumen PDF.',
+    icon: PenTool,
+    href: '/sign'
+  }
+];
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const features = [
+  {
+    icon: Shield,
+    title: '100% Aman',
+    description: 'Semua proses di browser Anda. File tidak pernah meninggalkan perangkat.'
+  },
+  {
+    icon: Zap,
+    title: 'Super Cepat',
+    description: 'Tanpa waktu upload. Proses file instan dengan teknologi client-side.'
+  },
+  {
+    icon: Globe,
+    title: 'Offline Mode',
+    description: 'Setelah dimuat, PDFIndo bisa bekerja tanpa koneksi internet.'
+  }
+];
 
-export default function Home() {
+export default function Index() {
   return (
-    <div
-      className={`${geistSans.className} ${geistMono.className} flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black`}
-    >
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the index.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      
+      {/* Hero Section - Langsung ke Tools */}
+      <section className="pt-28 pb-8 md:pt-32 md:pb-12">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-8"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs/pages/getting-started?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+            <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-3">
+              Semua Tools <span className="text-primary">PDF</span> Gratis
+            </h1>
+            <p className="text-muted-foreground max-w-xl mx-auto">
+              Proses PDF langsung di browser. Aman, cepat, tanpa upload ke server.
+            </p>
+          </motion.div>
+
+          {/* Tools Grid */}
+          <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3 md:gap-4 auto-rows-fr">
+            {tools.map((tool, index) => (
+              <ToolCard key={tool.title} {...tool} delay={0.05 + index * 0.03} />
+            ))}
+          </div>
         </div>
-      </main>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-12 md:py-16 bg-surface-subtle">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-10"
+          >
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+              Kenapa PDFIndo?
+            </h2>
+            <p className="text-muted-foreground">
+              Dibuat dengan prioritas privasi dan kecepatan
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+            {features.map((feature, index) => (
+              <motion.div
+                key={feature.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="text-center p-6 rounded-2xl bg-card border border-border"
+              >
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mx-auto mb-3">
+                  <feature.icon className="w-6 h-6 text-primary" />
+                </div>
+                <h3 className="text-base font-semibold text-foreground mb-1">
+                  {feature.title}
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  {feature.description}
+                </p>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Footer />
     </div>
   );
 }
