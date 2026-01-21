@@ -24,6 +24,7 @@ const Navbar: React.FC = () => {
   const { theme, toggleTheme } = useTheme();
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const [isToolsOpen, setIsToolsOpen] = React.useState(false);
+  const [showQris, setShowQris] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
 
   React.useEffect(() => {
@@ -54,7 +55,7 @@ const Navbar: React.FC = () => {
             {/* Center - Feedback */}
             <div className="hidden md:flex items-center">
               <a 
-                href="https://forms.google.com/feedback" 
+                href="https://forms.gle/iErQNMgUMsPUmoqeA" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 px-4 py-2 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
@@ -160,10 +161,8 @@ const Navbar: React.FC = () => {
       </div>
 
       {/* Support Banner */}
-      <a 
-        href="https://saweria.co/pdftools" 
-        target="_blank" 
-        rel="noopener noreferrer"
+      <button
+        onClick={() => setShowQris(true)}
         className="block w-full py-1.5 bg-gradient-to-r from-pink-500/10 via-pink-500/20 to-rose-500/10 border-b border-pink-500/10 hover:from-pink-500/20 hover:via-pink-500/30 hover:to-rose-500/20 transition-all"
       >
         <div className="container mx-auto px-4 flex items-center justify-center gap-2 text-xs sm:text-sm">
@@ -171,7 +170,46 @@ const Navbar: React.FC = () => {
           <span className="text-muted-foreground">Suka PDFIndo?</span>
           <span className="text-pink-500 font-medium">Dukung kami →</span>
         </div>
-      </a>
+      </button>
+
+      {/* QRIS Modal */}
+      {showQris && (
+        <div 
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4"
+          onClick={() => setShowQris(false)}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            onClick={(e) => e.stopPropagation()}
+            className="bg-card border border-border rounded-2xl p-6 max-w-md w-full shadow-2xl"
+          >
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-foreground">Dukung PDFIndo</h3>
+              <button
+                onClick={() => setShowQris(false)}
+                className="p-2 rounded-lg hover:bg-secondary transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <p className="text-sm text-muted-foreground mb-4">
+              Scan QRIS di bawah untuk mendukung pengembangan PDFIndo
+            </p>
+            <div className="bg-white p-4 rounded-xl">
+              <img 
+                src="/Qris.PNG" 
+                alt="QRIS PDFIndo" 
+                className="w-full h-auto"
+              />
+            </div>
+            <p className="text-xs text-center text-muted-foreground mt-4">
+              Terima kasih atas dukungannya! ❤️
+            </p>
+          </motion.div>
+        </div>
+      )}
     </motion.nav>
   );
 };
